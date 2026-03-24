@@ -21,15 +21,16 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   # POST /products
-  def create
+    def create
     @product = Product.new(product_params)
 
     if @product.save
-      render json: @product, status: :created
+        render json: { message: "Product created successfully", data: @product }, status: :created
     else
-      render json: { errors: @product.errors }, status: :unprocessable_entity
+        render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
     end
-  end
+    end
+
 
   # PUT /products/:id
   def update
